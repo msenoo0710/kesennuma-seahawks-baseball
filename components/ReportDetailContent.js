@@ -64,6 +64,46 @@ function Lightbox({ src, alt, onClose }) {
   );
 }
 
+/* ===== Share Buttons ===== */
+function ShareButtons({ title }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = (type) => {
+    const url = window.location.href;
+    const text = title;
+
+    if (type === 'LINE') {
+      window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`, '_blank', 'noopener');
+    } else if (type === 'X') {
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank', 'noopener');
+    } else if (type === 'コピー') {
+      navigator.clipboard.writeText(url).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', padding: '24px 0', position: 'relative' }}>
+      <span style={{ fontSize: '10px', color: '#aaa', fontWeight: 700, letterSpacing: '2px', marginRight: '4px' }}>SHARE</span>
+      {[
+        { label: 'LINE', color: '#06C755', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 5.95 2 10.7c0 4.26 3.66 7.84 8.61 8.52.34.07.79.22.91.51.1.26.07.67.03.93l-.15.91c-.04.26-.2 1.02.89.56 1.09-.47 5.88-3.46 8.03-5.93C22.18 14.16 22 12.5 22 10.7 22 5.95 17.52 2 12 2z" /></svg> },
+        { label: 'X', color: '#000', icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg> },
+        { label: 'コピー', color: copied ? '#00C853' : '#666', icon: copied
+          ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><path d="M20 6L9 17l-5-5" /></svg>
+          : <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+        },
+      ].map((s) => (
+        <button key={s.label} onClick={() => handleShare(s.label)} className="share-btn" style={{ width: '40px', height: '40px', borderRadius: '50%', border: 'none', background: s.color, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 3px 10px ${s.color}33`, cursor: 'pointer', transition: 'transform 0.15s ease' }} title={s.label}>{s.icon}</button>
+      ))}
+      {copied && (
+        <div style={{ position: 'absolute', bottom: '0', background: '#00C853', color: '#fff', fontSize: '11px', fontWeight: 800, padding: '4px 12px', borderRadius: '6px', animation: 'fadeInUp 0.2s ease both' }}>URLをコピーしました</div>
+      )}
+    </div>
+  );
+}
+
 /* ===== Main Page ===== */
 export default function ReportDetailContent({ report, prevReport, nextReport }) {
   const [lightboxImage, setLightboxImage] = useState(null);
@@ -134,16 +174,7 @@ export default function ReportDetailContent({ report, prevReport, nextReport }) 
         />
 
         {/* Share bar */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', padding: '24px 0' }}>
-          <span style={{ fontSize: '10px', color: '#aaa', fontWeight: 700, letterSpacing: '2px', marginRight: '4px' }}>SHARE</span>
-          {[
-            { label: 'LINE', color: '#06C755', icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 5.95 2 10.7c0 4.26 3.66 7.84 8.61 8.52.34.07.79.22.91.51.1.26.07.67.03.93l-.15.91c-.04.26-.2 1.02.89.56 1.09-.47 5.88-3.46 8.03-5.93C22.18 14.16 22 12.5 22 10.7 22 5.95 17.52 2 12 2z" /></svg> },
-            { label: 'X', color: '#000', icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg> },
-            { label: 'コピー', color: '#666', icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg> },
-          ].map((s) => (
-            <button key={s.label} className="share-btn" style={{ width: '40px', height: '40px', borderRadius: '50%', border: 'none', background: s.color, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 3px 10px ${s.color}33` }} title={s.label}>{s.icon}</button>
-          ))}
-        </div>
+        <ShareButtons title={report.title} />
 
         {/* Prev / Next */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', paddingBottom: '32px' }}>
