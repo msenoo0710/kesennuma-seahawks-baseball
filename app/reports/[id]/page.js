@@ -2,7 +2,7 @@ import { getReportById, getReports } from '@/lib/microcms';
 import ReportDetailContent from '@/components/ReportDetailContent';
 import { notFound } from 'next/navigation';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function ReportDetailPage({ params }) {
   const { id } = await params;
@@ -13,7 +13,6 @@ export default async function ReportDetailPage({ params }) {
       getReports(),
     ]);
 
-    // 前後の記事を取得
     const idx = allReports.findIndex((r) => r.id === id);
     const prevReport = idx > 0 ? allReports[idx - 1] : null;
     const nextReport = idx < allReports.length - 1 ? allReports[idx + 1] : null;

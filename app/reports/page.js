@@ -1,9 +1,13 @@
 import { getReports } from '@/lib/microcms';
 import ReportsContent from '@/components/ReportsContent';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function ReportsArchive() {
-  const reports = await getReports();
-  return <ReportsContent reports={reports} />;
+  try {
+    const reports = await getReports();
+    return <ReportsContent reports={reports} />;
+  } catch (e) {
+    return <ReportsContent reports={[]} />;
+  }
 }
