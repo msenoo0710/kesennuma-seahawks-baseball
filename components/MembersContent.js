@@ -164,11 +164,9 @@ export default function MembersContent({ players, coaches, team }) {
             <div style={{ display: 'inline-flex', background: '#FFD600', borderRadius: '50%', width: '52px', height: '52px', alignItems: 'center', justifyContent: 'center', color: '#0052D4', marginBottom: '16px', boxShadow: '0 4px 16px rgba(255,214,0,0.4)' }}>
               <BaseballIcon size={30} />
             </div>
-            <h3 style={{ fontSize: '20px', fontWeight: 900, color: '#fff', margin: '0 0 8px 0', lineHeight: 1.4 }}>一緒に野球しよう！</h3>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', lineHeight: 1.8, margin: '0 0 20px 0' }}>
-              新しい仲間を募集しています。<br />
-              {team.target || '小学1〜6年生'}ならだれでも大歓迎！<br />
-              体験入団は随時受付中です。
+            <h3 style={{ fontSize: '20px', fontWeight: 900, color: '#fff', margin: '0 0 8px 0', lineHeight: 1.4 }}>{team.recruitTitle || '一緒に野球しよう！'}</h3>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', lineHeight: 1.8, margin: '0 0 20px 0', whiteSpace: 'pre-line' }}>
+              {team.recruitMessage || `新しい仲間を募集しています。\n${team.target || '小学1〜6年生'}ならだれでも大歓迎！\n体験入団は随時受付中です。`}
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
               {team.contactInfo && (
