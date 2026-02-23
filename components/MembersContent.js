@@ -21,7 +21,7 @@ export default function MembersContent({ players, coaches, team }) {
 
   return (
     <>
-      <Header current="メンバー" />
+      <Header current="メンバー" team={team} />
 
       {/* Hero */}
       <section style={{ background: 'linear-gradient(135deg, #FF1744 0%, #FF5252 40%, #FF8A80 100%)', padding: '40px 20px 56px', position: 'relative', overflow: 'hidden' }}>
@@ -196,7 +196,7 @@ export default function MembersContent({ players, coaches, team }) {
         </div>
       </section>
 
-      <Footer />
+      <Footer team={team} />
     </>
   );
 }

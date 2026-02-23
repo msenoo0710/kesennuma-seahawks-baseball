@@ -24,7 +24,7 @@ export default function HomeContent({ reports, team, players, coaches }) {
 
   return (
     <>
-      <Header />
+      <Header team={team} />
 
       {/* ===== HERO ===== */}
       <section id="top" className="fade-up" style={{
@@ -55,10 +55,10 @@ export default function HomeContent({ reports, team, players, coaches }) {
           </div>
         )}
 
-        <div className="fade-up-2" style={{ display: 'inline-block', background: '#FFD600', color: '#0052D4', fontFamily: "'Bebas Neue', sans-serif", fontSize: '14px', letterSpacing: '6px', padding: '4px 20px', borderRadius: '4px', marginBottom: '12px', boxShadow: '0 4px 16px rgba(255,214,0,0.3)' }}>YOUR TEAM</div>
+        <div className="fade-up-2" style={{ display: 'inline-block', background: '#FFD600', color: '#0052D4', fontFamily: "'Bebas Neue', sans-serif", fontSize: '14px', letterSpacing: '6px', padding: '4px 20px', borderRadius: '4px', marginBottom: '12px', boxShadow: '0 4px 16px rgba(255,214,0,0.3)' }}>{team.teamLabel || 'YOUR TEAM'}</div>
         <h1 className="fade-up-2" style={{ fontSize: '34px', fontWeight: 900, color: '#fff', textAlign: 'center', margin: '0 0 16px 0', lineHeight: 1.3, textShadow: '0 4px 24px rgba(0,0,0,0.2)' }}>{team.teamName || '〇〇少年野球クラブ'}</h1>
-        <p className="fade-up-3" style={{ fontSize: '15px', color: 'rgba(255,255,255,0.9)', textAlign: 'center', fontWeight: 700, margin: 0 }}>「楽しく、真剣に、仲間とともに」</p>
-        <p className="fade-up-3" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.65)', textAlign: 'center', margin: '8px 0 0 0' }}>野球を通じて子どもたちの成長を応援します</p>
+        {team.motto && <p className="fade-up-3" style={{ fontSize: '15px', color: 'rgba(255,255,255,0.9)', textAlign: 'center', fontWeight: 700, margin: 0 }}>「{team.motto}」</p>}
+        {team.subtitle && <p className="fade-up-3" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.65)', textAlign: 'center', margin: '8px 0 0 0' }}>{team.subtitle}</p>}
         <div className="fade-up-4" style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', opacity: 0.5 }}>
           <span style={{ fontSize: '10px', color: '#fff', letterSpacing: '2px' }}>SCROLL</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
@@ -247,7 +247,7 @@ export default function HomeContent({ reports, team, players, coaches }) {
         </div>
       </section>
 
-      <Footer />
+      <Footer team={team} />
     </>
   );
 }

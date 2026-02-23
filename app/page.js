@@ -24,7 +24,7 @@ export default async function HomePage() {
     return (
       <HomeContent
         reports={[]}
-        team={{ teamName: '〇〇少年野球クラブ', introduction: '', schedule: '', location: '', target: '', contactInfo: '', mainVisual: null }}
+        team={{ teamName: '〇〇少年野球クラブ', teamLabel: 'YOUR TEAM', motto: '', subtitle: '', introduction: '', schedule: '', location: '', target: '', contactInfo: '', mainVisual: null }}
         players={[]}
         coaches={[]}
       />

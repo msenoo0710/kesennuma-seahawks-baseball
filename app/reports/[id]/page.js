@@ -1,4 +1,4 @@
-import { getReportById, getReports } from '@/lib/microcms';
+import { getReportById, getReports, getTeamInfo } from '@/lib/microcms';
 import ReportDetailContent from '@/components/ReportDetailContent';
 import { notFound } from 'next/navigation';
 
@@ -8,9 +8,10 @@ export default async function ReportDetailPage({ params }) {
   const { id } = await params;
 
   try {
-    const [report, allReports] = await Promise.all([
+    const [report, allReports, team] = await Promise.all([
       getReportById(id),
       getReports(),
+      getTeamInfo(),
     ]);
 
     const idx = allReports.findIndex((r) => r.id === id);
@@ -22,6 +23,7 @@ export default async function ReportDetailPage({ params }) {
         report={report}
         prevReport={prevReport}
         nextReport={nextReport}
+        team={team}
       />
     );
   } catch (e) {

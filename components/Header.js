@@ -4,8 +4,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import BaseballIcon from './BaseballIcon';
 
-export default function Header({ current = '' }) {
+export default function Header({ current = '', team = {} }) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const teamName = team.teamName || '〇〇少年野球クラブ';
+  const teamLabel = team.teamLabel || 'YOUR TEAM';
+  const location = team.location || '';
+  const schedule = team.schedule || '';
 
   useEffect(() => {
     if (menuOpen) {
@@ -67,10 +72,10 @@ export default function Header({ current = '' }) {
                 whiteSpace: 'nowrap',
               }}
             >
-              YOUR TEAM
+              {teamLabel}
             </div>
             <div style={{ fontSize: '11px', color: '#fff', fontWeight: 900, marginTop: '-1px', whiteSpace: 'nowrap' }}>
-              〇〇少年野球クラブ
+              {teamName}
             </div>
           </div>
         </Link>
@@ -184,12 +189,12 @@ export default function Header({ current = '' }) {
               <BaseballIcon size={16} />
             </div>
             <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '10px', color: '#FFD600', letterSpacing: '2px' }}>
-              YOUR TEAM
+              {teamLabel}
             </div>
           </div>
           <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.8 }}>
-            〇〇市立○○小学校グラウンド<br />
-            毎週 土・日 9:00〜12:00
+            {location && <>{location.replace(/\n/g, ' ')}<br /></>}
+            {schedule && <>{schedule.replace(/\n/g, ' ')}</>}
           </div>
         </div>
       </nav>

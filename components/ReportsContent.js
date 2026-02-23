@@ -14,7 +14,7 @@ function stripHtml(html) {
   return html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
 }
 
-export default function ReportsContent({ reports }) {
+export default function ReportsContent({ reports, team = {} }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeYear, setActiveYear] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,7 +37,7 @@ export default function ReportsContent({ reports }) {
 
   return (
     <>
-      <Header current="活動報告" />
+      <Header current="活動報告" team={team} />
 
       {/* Hero */}
       <section style={{ background: 'linear-gradient(135deg, #0052D4 0%, #0066FF 40%, #00B4D8 100%)', padding: '40px 20px 52px', position: 'relative', overflow: 'hidden' }}>
@@ -187,7 +187,7 @@ export default function ReportsContent({ reports }) {
         )}
       </section>
 
-      <Footer />
+      <Footer team={team} />
     </>
   );
 }

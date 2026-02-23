@@ -1,6 +1,12 @@
 import BaseballIcon from './BaseballIcon';
 
-export default function Footer() {
+export default function Footer({ team = {} }) {
+  const teamName = team.teamName || '〇〇少年野球クラブ';
+  const teamLabel = team.teamLabel || 'YOUR TEAM';
+  const location = team.location || '';
+  const schedule = team.schedule || '';
+  const contactInfo = team.contactInfo || '';
+
   return (
     <footer
       style={{
@@ -38,17 +44,15 @@ export default function Footer() {
             marginBottom: '2px',
           }}
         >
-          YOUR TEAM
+          {teamLabel}
         </div>
         <div style={{ fontSize: '14px', color: '#fff', fontWeight: 900, marginBottom: '20px' }}>
-          〇〇少年野球クラブ
+          {teamName}
         </div>
         <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', lineHeight: 2 }}>
-          活動場所：〇〇市立○○小学校グラウンド
-          <br />
-          活動日時：毎週 土・日 9:00〜12:00
-          <br />
-          お問い合わせ：090-XXXX-XXXX（代表 山田）
+          {location && <>活動場所：{location.replace(/\n/g, ' ')}<br /></>}
+          {schedule && <>活動日時：{schedule.replace(/\n/g, ' ')}<br /></>}
+          {contactInfo && <>お問い合わせ：{contactInfo.replace(/\n/g, ' ')}</>}
         </div>
         <div
           style={{
@@ -59,7 +63,7 @@ export default function Footer() {
             letterSpacing: '3px',
           }}
         >
-          © 2025 YOUR TEAM BASEBALL CLUB
+          © {new Date().getFullYear()} {teamLabel} BASEBALL CLUB
         </div>
       </div>
     </footer>

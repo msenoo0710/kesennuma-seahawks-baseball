@@ -105,7 +105,7 @@ function ShareButtons({ title }) {
 }
 
 /* ===== Main Page ===== */
-export default function ReportDetailContent({ report, prevReport, nextReport }) {
+export default function ReportDetailContent({ report, prevReport, nextReport, team = {} }) {
   const [lightboxImage, setLightboxImage] = useState(null);
   const cat = categoryStyle(report.category);
   const dateStr = formatDate(report.date).display;
@@ -124,7 +124,7 @@ export default function ReportDetailContent({ report, prevReport, nextReport }) 
 
   return (
     <>
-      <Header current="活動報告" />
+      <Header current="活動報告" team={team} />
 
       {/* Article Hero */}
       <section style={{ background: `linear-gradient(135deg, ${cat.bg}DD 0%, ${cat.bg} 100%)`, padding: '32px 20px 48px', position: 'relative', overflow: 'hidden' }}>
@@ -213,7 +213,7 @@ export default function ReportDetailContent({ report, prevReport, nextReport }) 
         </div>
       </section>
 
-      <Footer />
+      <Footer team={team} />
 
       {lightboxImage && (
         <Lightbox
